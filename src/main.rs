@@ -5,9 +5,9 @@ use std::io::ErrorKind;
 
 fn main() {
     let example_dir = "./example";
-    let entries = walk_dir(Path::new(example_dir));
+    let entries = walk_dir(Path::new(example_dir)).expect("Failed to walk dir");
 
-    for e in entries.expect("Failed to walk dir").iter() {
+    for e in entries.iter() {
         println!("Found entry: {}", e.file_name().to_str().unwrap());
     }
 
