@@ -10,6 +10,27 @@ fn main() {
     for e in entries.expect("Failed to walk dir").iter() {
         println!("Found entry: {}", e.file_name().to_str().unwrap());
     }
+
+    let res = sliding_window("astring".to_string(), 3).expect("Failed to split string");
+    println!("Sliding window result:");
+    for x in res.iter() {
+        println!("{}", x);
+    }
+}
+
+fn sliding_window(seq: String, n: usize) -> Option<Vec<String>> {
+    if seq.len() == 0 {
+        return None;
+    }
+
+    let mut split: Vec<String> = Vec::new();
+    for i in 0..(seq.len() - n +1) {
+        // We actually want to copy here bcs we dont know what's gonna happen to the split string
+        let sub = (&seq[i..i+n]).to_string();
+        split.push(sub);
+    }
+
+    return Some(split);
 }
 
 fn walk_dir(path: &Path) -> Result<Vec<DirEntry>, std::io::Error> {
